@@ -61,6 +61,7 @@ changeColor("red",1000,()=>{
 
 
 // ---------------------------------------------------------------------------
+// asynchronous (one by one)
 function db(data,success,failure){
     let is=Math.floor(Math.random()*10)+1;
     if(is>4) success();
@@ -92,5 +93,22 @@ db("A",
 
 
 
-// PROMISES 
+// PROMISES ------------------------------------------------------------
 
+
+function db1(data) {
+  return new Promise((success, failure) => {
+    let is = Math.floor(Math.random() * 10) + 1;
+    if (is > 4) success(`Data "${data}" is saved`);
+    else failure(`Data "${data}" failed due to weak connection`);
+  });
+}
+
+//  Handle Promise using .then() and .catch()
+db1("yes")
+  .then((message) => {
+    console.log(" Success:", message);
+  })
+  .catch((error) => {
+    console.log(" Failure:", error);
+  });
